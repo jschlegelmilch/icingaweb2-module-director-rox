@@ -114,7 +114,7 @@ $this->provideSearchUrl($this->translate('Host configs'), 'director/hosts?limit=
 
 // Disabled unless available
 $this->provideRestriction(
-    'director/host/template/filter',
+    'director/host/template/filter-by-name',
     $this->translate('Allow to use only host templates matching this filter')
 );
 /*
