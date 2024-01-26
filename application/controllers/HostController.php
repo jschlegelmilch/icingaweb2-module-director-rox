@@ -50,7 +50,7 @@ class HostController extends ObjectController
         if ($backend->canModifyHost($host->getObjectName())) {
             return;
         }
-        $this->hasPermission(Permission::HOSTS); // complain about default hosts permission
+        $this->assertPermission(Permission::HOSTS); // complain about default hosts permission
     }
 
     protected function isServicesReadOnlyAction()
@@ -123,17 +123,22 @@ class HostController extends ObjectController
         $hostname = $host->getObjectName();
         $this->tabs()->activate('services');
 
+        if ($this->hasPermission(Permission::SERVICES_ADD)) {
         $this->actions()->add(Link::create(
             $this->translate('Add service'),
             'director/host/service',
             ['name' => $hostname],
             ['class' => 'icon-plus']
-        ))->add(Link::create(
+        ));
+    }
+    if ($this->hasPermission(Permission::SERVICE_SETS_ADD)) {
+        $this->actions()->add(Link::create(
             $this->translate('Add service set'),
             'director/host/serviceset',
             ['name' => $hostname],
             ['class' => 'icon-plus']
         ));
+    }
     }
 
     public function findserviceAction()
