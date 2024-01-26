@@ -42,7 +42,7 @@ abstract class ObjectsController extends ActionController
     protected function checkDirectorPermissions()
     {
         if ($this->getRequest()->getActionName() !== 'sets') {
-            $this->assertPermission('director/' . $this->getPluralBaseType());
+            $this->hasPermission('director/' . $this->getPluralBaseType());
         }
     }
 
@@ -245,7 +245,8 @@ abstract class ObjectsController extends ActionController
 
         $shortType = IcingaObject::createByType($type)->getShortTableName();
         $this
-            ->assertPermission('director/admin')
+            
+        ->assertPermission('director/' . $type . '_templates')
             ->addObjectsTabs()
             ->setAutorefreshInterval(10)
             ->addTitle(

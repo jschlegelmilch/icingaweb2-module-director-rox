@@ -53,14 +53,16 @@ class ObjectsTabs extends Tabs
             }
         }
 
-        if ($auth->hasPermission(Permission::ADMIN) && $type !== 'zone') {
+        if ($auth->hasPermission('director/' . $type . '_templates') && $type !== 'zone') {
             if ($object->supportsImports()) {
                 $this->add('templates', [
                     'url'   => sprintf('director/%s/templates', $plType),
                     'label' => $this->translate('Templates'),
                 ]);
             }
+        }
 
+        if ($auth->hasPermission(Permission::ADMIN)) {
             if ($object->supportsGroups()) {
                 $this->add('groups', [
                     'url'   => sprintf('director/%sgroups', $typeUrl),

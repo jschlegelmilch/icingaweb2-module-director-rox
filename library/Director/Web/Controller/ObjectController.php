@@ -751,6 +751,7 @@ abstract class ObjectController extends ActionController
             }
         }
     }
+    
     /**
      * @param  string $permission
      * @return bool
