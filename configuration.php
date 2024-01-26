@@ -170,7 +170,7 @@ $section->add(N_('Services'))
     ->setPriority(40);
 $section->add(N_('Commands'))
     ->setUrl('director/dashboard?name=commands')
-    ->setPermission(Permission::ADMIN)
+    ->setPermission(Permission::COMMANDS)
     ->setPriority(50);
 $section->add(N_('Notifications'))
     ->setUrl('director/dashboard?name=notifications')
