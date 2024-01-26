@@ -17,6 +17,11 @@ $icingadbExists = Module::exists('icingadb');
 $this->providePermission(Permission::ALL_PERMISSIONS, $this->translate('Allow unrestricted access to Icinga Director'));
 $this->providePermission(Permission::API, $this->translate('Allow to access the director API'));
 $this->providePermission(Permission::AUDIT, $this->translate('Allow to access the full audit log'));
+$this->providePermission(Permission::BASKETS, $this->translate('Allow to access the basket dashboard'));
+$this->providePermission(Permission::CLONE, $this->translate('Allow to clone objects'));
+$this->providePermission(Permission::COMMANDS, $this->translate('Allow to access the commands section including check commands and external commands'));
+$this->providePermission(Permission::COMMAND_CREATE, $this->translate('Allow to create the commands'));
+$this->providePermission(Permission::COMMAND_TEMPLATES, $this->translate('Allow to access the command templates section'));
 $this->providePermission(Permission::DEPLOY, $this->translate('Allow to deploy configuration'));
 $this->providePermission(Permission::INSPECT, $this->translate(
     'Allow to inspect objects through the Icinga 2 API (could contain sensitive information)'
@@ -31,13 +36,22 @@ $this->providePermission(Permission::GROUPS_FOR_RESTRICTED_HOSTS, $this->transla
     'Allow users with Hostgroup restrictions to access the Groups field'
 ));
 $this->providePermission(Permission::HOSTS, $this->translate('Allow to configure hosts'));
+$this->providePermission(Permission::HOST_CREATE, $this->translate('Allow to create hosts'));
+$this->providePermission(Permission::HOST_TEMPLATES, $this->translate('Allow to configure host templates'));
 $this->providePermission(Permission::NOTIFICATIONS, $this->translate(
     'Allow to configure notifications (unrestricted)'
 ));
+$this->providePermission(Permission::OBJECTS_DELETE, $this->translate('Allow to delete objects'));
 $this->providePermission(Permission::SERVICES, $this->translate('Allow to configure services'));
+$this->providePermission(Permission::SERVICE_CREATE, $this->translate('Allow to create services'));
+$this->providePermission(Permission::SERVICES_ADD, $this->translate('Allow to add services to hosts'));
+$this->providePermission(Permission::SERVICE_TEMPLATES, $this->translate('Allow to configure service templates'));
 $this->providePermission(Permission::SERVICE_SETS, $this->translate('Allow to configure service sets'));
+$this->providePermission(Permission::SERVICE_SETS_ADD, $this->translate('Allow to add service sets to hosts'));
 $this->providePermission(Permission::SERVICE_SET_APPLY, $this->translate('Allow to define Service Set Apply Rules'));
+$this->providePermission(Permission::SERVICE_HOST_TAB, $this->translate('Allow to show the service tab in hostview'));
 $this->providePermission(Permission::USERS, $this->translate('Allow to configure users'));
+$this->providePermission(Permission::USER_CREATE, $this->translate('Allow to create users'));
 $this->providePermission(Permission::SCHEDULED_DOWNTIMES, $this->translate(
     'Allow to configure notifications (unrestricted)'
 ));
@@ -97,13 +111,13 @@ $this->provideRestriction(Restriction::SERVICE_SET_FILTER_BY_NAME, $this->transl
 
 $this->provideSearchUrl($this->translate('Host configs'), 'director/hosts?limit=10', 60);
 
-/*
+
 // Disabled unless available
 $this->provideRestriction(
-    'director/hosttemplates/filter',
+    'director/host/template/filter',
     $this->translate('Allow to use only host templates matching this filter')
 );
-
+/*
 $this->provideRestriction(
     'director/db_resource',
     $this->translate('Allow to use only these db resources (comma separated list)')
