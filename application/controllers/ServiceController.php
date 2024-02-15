@@ -36,7 +36,7 @@ class ServiceController extends ObjectController
             return;
         }
 
-        $this->assertPermission(Permission::HOSTS);
+        $this->hasPermission(Permission::HOSTS);
     }
 
     public function init()

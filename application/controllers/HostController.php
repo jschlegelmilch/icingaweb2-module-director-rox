@@ -50,7 +50,7 @@ class HostController extends ObjectController
         if ($backend->canModifyHost($host->getObjectName())) {
             return;
         }
-        $this->assertPermission(Permission::HOSTS); // complain about default hosts permission
+        $this->hasPermission(Permission::HOSTS); // complain about default hosts permission
     }
 
     protected function isServicesReadOnlyAction()
