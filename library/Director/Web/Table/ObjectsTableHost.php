@@ -26,6 +26,7 @@ class ObjectsTableHost extends ObjectsTable
 
     protected $showColumns = [
         'object_name' => 'Hostname',
+        'display_name'=> 'Alias',
         'address'     => 'Address'
     ];
 
