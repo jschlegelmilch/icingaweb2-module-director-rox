@@ -36,7 +36,8 @@ class HostController extends ObjectController
         $host = $this->getHostObject();
         $auth = $this->Auth();
         $backend = $this->backend();
-        if ($this->isServiceAction()
+        if (
+            $this->isServiceAction()
             && $backend->canModifyService($host->getObjectName(), $this->getParam('service'))
         ) {
             return;
@@ -152,7 +153,8 @@ class HostController extends ObjectController
 
         if ($info && $auth->hasPermission(Permission::HOSTS)) {
             $redirectUrl = $info->getUrl();
-        } elseif ($info
+        } elseif (
+            $info
             && (($backend instanceof Monitoring && $auth->hasPermission(Permission::MONITORING_HOSTS))
                 || ($backend instanceof IcingadbBackend && $auth->hasPermission(Permission::ICINGADB_HOSTS))
             )
@@ -598,7 +600,8 @@ class HostController extends ObjectController
         $host = $this->object;
         try {
             $backend = $this->backend();
-            if ($host instanceof IcingaHost
+            if (
+                $host instanceof IcingaHost
                 && $host->isObject()
                 && $backend->hasHost($host->getObjectName())
             ) {
