@@ -28,6 +28,6 @@ class SingleServicesDashlet extends Dashlet
 
     public function listRequiredPermissions()
     {
-        return [Permission::SERVICES];
+        return [Permission::ADMIN];
     }
 }

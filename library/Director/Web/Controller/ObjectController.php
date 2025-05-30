@@ -33,6 +33,9 @@ use Icinga\Module\Director\Web\Table\GroupMemberTable;
 use Icinga\Module\Director\Web\Table\IcingaObjectDatafieldTable;
 use Icinga\Module\Director\Web\Tabs\ObjectTabs;
 use Icinga\Module\Director\Web\Widget\BranchedObjectHint;
+use Icinga\Authentication\Auth;
+use Icinga\Module\Director\Util;
+use Icinga\Module\Director\Auth\Permission;
 use gipfl\IcingaWeb2\Link;
 use ipl\Html\Html;
 use Ramsey\Uuid\Uuid;
@@ -383,14 +386,15 @@ abstract class ObjectController extends ActionController
 
     protected function addActionClone()
     {
-        $this->actions()->add(Link::create(
-            $this->translate('Clone'),
-            $this->getObjectBaseUrl() . '/clone',
-            $this->object->getUrlParams(),
-            array('class' => 'icon-paste')
-        ));
-
-        return $this;
+        if ($this->hasPermission(Permission::CLONE)) {
+            $this->actions()->add(Link::create(
+                $this->translate('Clone'),
+                $this->getObjectBaseUrl() . '/clone',
+                $this->object->getUrlParams(),
+                array('class' => 'icon-paste')
+            ));
+        }
+            return $this;
     }
 
     /**
@@ -398,6 +402,7 @@ abstract class ObjectController extends ActionController
      */
     protected function addActionBasket()
     {
+        if ($this->hasPermission(Permission::BASKETS)) {
         if ($this->hasBasketSupport()) {
             $object = $this->object;
             if ($object instanceof ExportInterface) {
@@ -430,13 +435,15 @@ abstract class ObjectController extends ActionController
                 ));
             }
         }
+        }
 
         return $this;
     }
 
     protected function addTemplate()
     {
-        $this->assertPermission('director/admin');
+        $type = $this->getType();
+        $this->assertPermission('director/' . $type . '_templates');
         $this->addTitle(
             $this->translate('Add new Icinga %s template'),
             $this->getTranslatedType()
@@ -748,5 +755,14 @@ abstract class ObjectController extends ActionController
                 $this->content()->add(Html::tag('br'));
             }
         }
+    }
+    
+    /**
+     * @param  string $permission
+     * @return bool
+     */
+    public function hasPermission($permission)
+    {
+        return Util::hasPermission($permission);
     }
 }

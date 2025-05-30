@@ -21,7 +21,7 @@ class ServicesetController extends ObjectController
 
     protected function checkDirectorPermissions()
     {
-        $this->assertPermission('director/servicesets');
+        $this->hasPermission('director/servicesets');
     }
 
     public function init()
